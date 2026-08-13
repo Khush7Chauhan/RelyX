@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package relayx.common.v1;
+enum HealthStatus {
+  UNKNOWN = 0;
+  SERVING = 1;
+  NOT_SERVING = 2;
+  MAINTENANCE = 3;
+}
+
+message PaginationRequest {
+  int32 page_size = 1;
+  int32 page_number = 2;
+}
+
+message PaginationResponse {
+  int32 total_items = 1;
+  int32 total_pages = 2;
+  int32 current_page = 3;
+}
+
+message Empty {}
