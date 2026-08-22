@@ -21,7 +21,6 @@ export class FanoutEngine {
     for (const clientId of clientIds) {
       const stream = this.connectionManager.getConnection(clientId);
       if (stream) {
-        // Push the event down the gRPC stream to the client
         stream.write({
           event_id: event.eventId,
           topic: event.topic,
