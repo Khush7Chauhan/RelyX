@@ -19,13 +19,9 @@ describe('StreamHub: Fanout Engine', () => {
 
   it('should route events only to subscribed clients', () => {
     fanoutEngine.startListening(['system_alerts']);
-
-    // Mock Client A (Subscribed)
     const mockStreamA = { write: vi.fn() };
     connManager.addConnection('client_A', mockStreamA as any);
     subManager.subscribe('client_A', ['system_alerts']);
-
-    // Mock Client B (Not Subscribed)
     const mockStreamB = { write: vi.fn() };
     connManager.addConnection('client_B', mockStreamB as any);
 

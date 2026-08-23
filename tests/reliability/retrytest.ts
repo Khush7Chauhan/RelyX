@@ -5,8 +5,6 @@ import * as grpc from '@grpc/grpc-js';
 describe('Gateway Reliability: Retry Manager', () => {
   it('should retry a transient UNAVAILABLE error using exponential backoff', async () => {
     const retryManager = new RetryManager(10, 50, 2);
-    
-    // Mock an operation that fails twice then succeeds
     let attempts = 0;
     const mockOperation = vi.fn().mockImplementation(async () => {
       attempts++;

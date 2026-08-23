@@ -13,7 +13,7 @@ describe('Gateway Integration: User Service', () => {
 
   beforeAll(() => {
     const client = new userProto.UserService(
-      'localhost:5000', // Hitting the gateway, not the service directly
+      'localhost:5000', 
       grpc.credentials.createInsecure()
     );
     createUser = util.promisify(client.CreateUser).bind(client);
