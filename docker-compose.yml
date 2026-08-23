@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  user-service:
+    image: node:20-alpine
+    working_dir: /app
+    # Mounts the root directory into the container
+    volumes:
+      - ./:/app
+    # Installs pnpm and starts the service
+    command: sh -c "npm install -g pnpm && pnpm install && pnpm dlx tsx services/user/src/server.ts"
+    ports:
+      - "50051:50051"
+    environment:
+      - USER_SVC_PORT=50051
+
+  order-service:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: sh -c "npm install -g pnpm && pnpm install && pnpm dlx tsx services/order/src/server.ts"
+    ports:
+      - "50053:50053"
+    environment:
+      - ORDER_SVC_PORT=50053
+
+  streamhub:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: sh -c "npm install -g pnpm && pnpm install && pnpm dlx tsx streamhub/src/server.ts"
+    ports:
+      - "50054:50054"
+
+  gateway:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: sh -c "npm install -g pnpm && pnpm install && pnpm dlx tsx gateway/src/server.ts"
+    ports:
+      - "5000:5000"
+    # Ensures the backend services start before the gateway
+    depends_on:
+      - user-service
+      - order-service
+      - streamhub
+    # Tell the gateway how to route to the Docker internal network hostnames
+    environment:
+      - USER_SVC_URL=user-service:50051
+      - ORDER_SVC_URL=order-service:50053
+      - STREAM_SVC_URL=streamhub:50054
