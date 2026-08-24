@@ -33,19 +33,19 @@ clients using an in-memory Event Broker.
 Project Structure
 
 RelayX/
-├── proto/ # Shared Protocol Buffer definitions
+├── proto/  # Shared Protocol Buffer definitions
 │ ├── user/user.proto
 │ ├── order/order.proto
 │ └── stream/stream.proto
-├── gateway/ # gRPC API Gateway
-├── services/ # Backend Microservices
+├── gateway/  # gRPC API Gateway
+├── services/  # Backend Microservices
 │ ├── user/
 │ └── order/
-├── streamhub/ # Real-time Event Broadcaster
-├── client/ # CLI Test Client for E2E validation
-├── tests/ # Vitest Integration & Reliability Suites
-├── package.json # Workspace Root Config
-└── docker-compose.yml # Container Orchestration
+├── streamhub/  # Real-time Event Broadcaster
+├── client/  # CLI Test Client for E2E validation
+├── tests/  # Vitest Integration & Reliability Suites
+├── package.json  # Workspace Root Config
+└── docker-compose.yml  # Container Orchestration
 
 Prerequisites
 Node.js (v18 or higher recommended)
